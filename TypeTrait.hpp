@@ -159,4 +159,20 @@ public:
 	}
 };
 
+template<template<class,class>class OperateTy, typename TestTy, typename ...Ty>
+struct Predicate;
+template<template<class, class>class OperateTy, typename TestTy, typename last>
+struct Predicate<OperateTy, TestTy, last>
+{
+    static constexpr bool value = OperateTy<TestTy, last>::value;
+};
+template<template<class, class>class OperateTy, typename TestTy, typename head, typename ...last>
+class Predicate<OperateTy, TestTy, head, last...>
+{
+    static constexpr bool intermediate_value = OperateTy<TestTy, head>::value;
+public:
+    static constexpr bool value = intermediate_value && Greater<OperateTy, TestTy, last...>::value;
+};
+
+
 #endif
