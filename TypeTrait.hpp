@@ -171,7 +171,7 @@ class Predicate<OperateTy, TestTy, head, last...>
 {
     static constexpr bool intermediate_value = OperateTy<TestTy, head>::value;
 public:
-    static constexpr bool value = intermediate_value && Greater<OperateTy, TestTy, last...>::value;
+    static constexpr bool value = intermediate_value && Predicate<OperateTy, TestTy, last...>::value;
 };
 
 
